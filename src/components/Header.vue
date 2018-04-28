@@ -5,7 +5,7 @@
       <a href="/">豆瓣电影</a>
       <!-- Enter键 被松开触发 -->
       <input @keyup.enter="search()" v-model.trim="searchContent" maxlength="50"
-        class="search-input" autofocus placeholder="搜索电影、电视剧、综艺、影人 ..."
+        class="search-input" autofocus placeholder="搜索电影、综艺、影人 ..."
       />
     </div>
 
@@ -63,12 +63,13 @@ export default {
 
 #nav-search {
   width: 100%;
-  height: .5rem;
+  height: .7rem;
+  line-height: .7rem;
   border-bottom: 1px solid #ccc;
 }
 #nav-search a {
   display: inline-block;
-  width: 30%;
+  width: 20%;
   line-height: .5rem;
   padding-left: .18rem;
   font-size: .18rem;
@@ -77,7 +78,7 @@ export default {
 }
 #nav-search > .search-input {
   border: none;
-  width: 60%;
+  width: 50%;
   height: .3rem;
   border-radius: .14rem;
   background: #fff;

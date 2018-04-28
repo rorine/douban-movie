@@ -2,22 +2,25 @@
   <div id="app">
     <Header></Header>
     <router-view></router-view>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    Footer
   }
 }
 </script>
 
 <style>
 #app {
-  padding-top: 1rem;
+  padding-top: 1.5rem;
 }
 </style>

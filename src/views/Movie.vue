@@ -1,18 +1,248 @@
 <template>
   <div id="movies">
-    {{ msg }}
+    <div class="title">
+      <span>电影票 - 杭州</span>
+    </div>
+    <!-- 正在热映 -->
+    <div id="now-playing">
+      <div class="mob-title">
+        <span>正在热映</span>
+        <router-link :to="{ name: 'movieList' }">
+          <div class="more">
+            <span>更多</span>
+            <i class="arrow"></i>
+          </div>
+        </router-link>
+      </div>
+      <div class="mob-main">
+        <ul class="lists clearfix">
+          <li class="list-item" v-for="(item, index) in in_Theaters.subjects" :key="index">
+            <router-link to="/" tag="div" class="item-content">
+              <img class="movie-img" :src="item.images.medium"/>
+              <div class="item-title">
+                {{ item.title }}
+              </div>
+            </router-link>
+            <p class="item-rating">
+              <span class="rating-score">{{ item.rating.average !== 0 ? '评分：' + item.rating.average : '暂无评分' }}</span>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- 分界线 -->
+    <div id="sub-line"></div>
+
+    <!-- 即将上映 -->
+    <div class="upComing">
+      <div class="mob-title">
+        <span>即将上映</span>
+        <router-link :to="{ name: 'movieList' }">
+          <div class="more">
+            <span>更多</span>
+            <i class="arrow"></i>
+          </div>
+        </router-link>
+      </div>
+      <div class="mob-main">
+        <ul class="lists clearfix">
+          <li class="list-item" v-for="(item, index) in comingSoon.subjects" :key="index">
+            <router-link to="/" tag="div" class="item-content">
+              <img class="movie-img" :src="item.images.medium"/>
+              <div class="item-title">
+                {{ item.title }}
+              </div>
+            </router-link>
+            <p class="item-collect">
+              {{ item.collect_count + '人想看' }}
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- 加载组件 -->
+    <Loading v-show="isLoading"></Loading>
   </div>
 </template>
 
 <script>
+import Loading from '@/components/Loading';
+import { theaters_API, comingSoon_API } from '@/store/fetch';
+import { fetch } from '@/store/fetch';
+
 export default {
   data() {
     return {
-      msg: '电影组件,开发中...'
+      // 正在热映
+      in_Theaters: {
+        count: 14,
+        city: '杭州',
+        subjects: []
+      },
+      // 即将上映
+      comingSoon: {
+        count: 14,
+        city: '杭州',
+        subjects: []
+      },
+      isLoading: true   // 是否加载
     }
+  },
+  created() {
+    this.getHotMovies();
+    this.getComingMovies();
+  },
+  methods: {
+    // 获取正在热映电影
+    getHotMovies() {
+      let params = {
+        count: this.in_Theaters.count,
+        city: this.in_Theaters.city
+      }
+      fetch(theaters_API, params).then(res => {
+        if (Array.isArray(res.data.subjects)) {
+          this.in_Theaters.subjects = [...res.data.subjects];
+          console.log('获取正在热映数据成功!');
+          this.isLoading = false;
+        }
+      }).catch(error => {
+        console.log('获取正在热映数据失败!');
+      });
+    },
+    getComingMovies() {
+      let params = {
+        count: this.comingSoon.count,
+        city: this.comingSoon.city
+      };
+      fetch(comingSoon_API, params).then(res => {
+        if (Array.isArray(res.data.subjects)) {
+          this.comingSoon.subjects = [...res.data.subjects];
+          console.log('获取即将上映数据成功!');
+          this.isLoading = false;
+        }
+      }).catch(error => {
+        console.log('获取即将上映数据失败!');
+      })
+    }
+  },
+  components: {
+    Loading
   }
 }
 </script>
 
 <style scoped>
+.title {
+  margin-top: .06rem;
+  padding-left: .06rem;
+  font-size: .18rem;
+  font-weight: bold;
+  height: .3rem;
+  line-height: .3rem;
+}
+#now-playing {
+  margin-top: .15rem;
+}
+.mob-title {
+  position: relative;
+  font-size: .16rem;
+  padding-left: .15rem;
+  height: .3rem;
+  line-height: .3rem;
+  color: #27a;
+  border-bottom: 1px solid #eee;
+}
+.more {
+  position: absolute;
+  top: 0;
+  right: .5rem;
+  width: .6rem;
+  height: .3rem;
+  line-height: .3rem;
+  font-size: .14rem;
+  color: #27a;
+}
+.more > .arrow {
+  position: absolute;
+  top: .1rem;
+  right: .18rem;
+  width: .1rem;
+  height: .1rem;
+  border-top: 2px solid #27a;;
+  border-right: 2px solid #27a;;
+  transform: rotate(45deg);   /* 旋转 45度 */
+}
+
+/* 正在热映样式 */
+.mob-main {
+  margin-top: .3rem;
+  padding: 0 .06rem;
+}
+/* 清除浮动 */
+.mob-main .clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.mob-main .list-item {
+  float: left;
+  margin: .1rem;
+}
+.list-item .item-content {
+  position: relative;
+  width: 1.7rem;
+  height: 2.2rem;
+  cursor: pointer;
+}
+.item-content img {
+  width: 100%;
+  height: 100%;
+}
+.item-content .item-title {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: .3rem;
+  line-height: .3rem;
+  font-size: .15rem;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  background: #27a;
+  opacity: .8;
+  border-radius: 3px 3px 0 0;
+  transition: height .5s;
+}
+.list-item:hover .item-title {
+  height: 1rem;
+  line-height: 1rem;
+}
+.item-rating {
+  text-align: center;
+}
+.item-rating > .rating-score {
+  font-size: .15rem;
+  color: #e09015;
+  line-height: 2;
+}
+
+/* 分界线 */
+#sub-line {
+  width: 100%;
+  height: .5rem;
+  background: #f0f0f0;
+  margin: .5rem 0;
+}
+
+/* 即将上映 */
+.upComing {
+}
+.item-collect {
+  text-align: center;
+  font-size: .15rem;
+  color: #e09015;
+  line-height: 2;
+}
 </style>
