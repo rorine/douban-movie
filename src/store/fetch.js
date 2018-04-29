@@ -4,6 +4,8 @@ import axios from 'axios';
 const theaters_API = '/api/v2/movie/in_theaters';
 // 即将上映 API
 const comingSoon_API = '/api/v2/movie/coming_soon';
+// 电影条目信息 API
+const movieDetail_API = '/api/v2/movie/subject/';
 
 // 使用 Promise 请求数据
 function fetch(url, params) {
@@ -21,5 +23,6 @@ function fetch(url, params) {
 export {
   theaters_API,
   comingSoon_API,
+  movieDetail_API,
   fetch
 }

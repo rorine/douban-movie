@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <Header></Header>
-    <router-view class="view"></router-view>
-    <!-- <Footer></Footer> -->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -19,8 +18,6 @@ export default {
 
 <style>
 #app {
-  /*position: relative;
-  min-height: 100%;*/
   padding-top: 1.5rem;
 }
 </style>
