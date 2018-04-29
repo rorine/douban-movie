@@ -219,7 +219,7 @@ export default {
   border-radius: 3px 3px 0 0;
   transition: height .5s;
 }
-.list-item:hover .item-title {
+.item-content:hover .item-title {
   height: 1rem;
   line-height: 1rem;
 }
