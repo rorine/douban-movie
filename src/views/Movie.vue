@@ -17,7 +17,8 @@
       <div class="mob-main">
         <ul class="lists clearfix">
           <li class="list-item" v-for="(item, index) in in_Theaters.subjects" :key="index">
-            <router-link to="/" tag="div" class="item-content">
+            <!-- 命名视图 -->
+            <router-link :to="{name: 'movieDetail', params: {movieID: item.id}}" tag="div" class="item-content">
               <img class="movie-img" :src="item.images.medium"/>
               <div class="item-title">
                 {{ item.title }}
@@ -47,7 +48,7 @@
       <div class="mob-main">
         <ul class="lists clearfix">
           <li class="list-item" v-for="(item, index) in comingSoon.subjects" :key="index">
-            <router-link to="/" tag="div" class="item-content">
+            <router-link :to="{ name: 'movieDetail', params: {movieID: item.id}}" tag="div" class="item-content">
               <img class="movie-img" :src="item.images.medium"/>
               <div class="item-title">
                 {{ item.title }}
@@ -132,6 +133,9 @@ export default {
 </script>
 
 <style scoped>
+#movies {
+  padding-bottom: .5rem;
+}
 .title {
   margin-top: .06rem;
   padding-left: .06rem;
@@ -224,6 +228,7 @@ export default {
 }
 .item-rating > .rating-score {
   font-size: .15rem;
+  font-weight: bold;
   color: #e09015;
   line-height: 2;
 }
@@ -242,6 +247,7 @@ export default {
 .item-collect {
   text-align: center;
   font-size: .15rem;
+  font-weight: bold;
   color: #e09015;
   line-height: 2;
 }
