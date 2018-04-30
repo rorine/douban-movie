@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     search() {
-      console.log('搜索点击');
+      this.$router.push({path: '/movie/search', query: {q: this.searchContent}});
     },
     select(item) {
       this.items.forEach((value) => {

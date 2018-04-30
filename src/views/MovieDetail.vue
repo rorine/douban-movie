@@ -69,6 +69,7 @@ export default {
         console.log('获取失败。')
       });
     },
+    // 后退
     back() {
       this.$router.go(-1);
     }

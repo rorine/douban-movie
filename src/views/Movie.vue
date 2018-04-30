@@ -1,5 +1,6 @@
 <template>
   <div id="movies">
+    <div class="error" v-if="error.isError">{{ error.errData }}</div>
     <div class="title">
       <span>电影票 - 杭州</span>
     </div>
@@ -86,7 +87,11 @@ export default {
         city: '杭州',
         subjects: []
       },
-      isLoading: true   // 是否加载
+      isLoading: true,   // 是否加载
+      error: {
+        isError: false,
+        errData: '获取数据失败, 刷新试试 ...'
+      }
     }
   },
   created() {
@@ -103,10 +108,12 @@ export default {
       fetch(theaters_API, params).then(res => {
         if (Array.isArray(res.data.subjects)) {
           this.in_Theaters.subjects = [...res.data.subjects];
-          console.log('获取正在热映数据成功!');
+          // console.log('获取正在热映数据成功!');
           this.isLoading = false;
         }
       }).catch(error => {
+        this.isLoading = false;
+        this.error.isError = true;
         console.log('获取正在热映数据失败!');
       });
     },
@@ -118,10 +125,12 @@ export default {
       fetch(comingSoon_API, params).then(res => {
         if (Array.isArray(res.data.subjects)) {
           this.comingSoon.subjects = [...res.data.subjects];
-          console.log('获取即将上映数据成功!');
+          // console.log('获取即将上映数据成功!');
           this.isLoading = false;
         }
       }).catch(error => {
+        this.isLoading = false;
+        this.error.isError = true;
         console.log('获取即将上映数据失败!');
       })
     }
@@ -135,6 +144,14 @@ export default {
 <style scoped>
 #movies {
   padding-bottom: .5rem;
+}
+#movies > .error {
+  height: .5rem;
+  line-height: .5rem;
+  text-align: center;
+  font-size: .2rem;
+  font-weight: bold;
+  color: #000;
 }
 .title {
   margin-top: .06rem;
@@ -213,6 +230,9 @@ export default {
   letter-spacing: 2px;
   font-weight: bold;
   text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: #fff;
   background: #27a;
   opacity: .8;
@@ -237,7 +257,7 @@ export default {
 #sub-line {
   width: 100%;
   height: .5rem;
-  background: #f0f0f0;
+  background: #f0f3f5;
   margin: .5rem 0;
 }
 
