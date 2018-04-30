@@ -7,13 +7,7 @@
     <!-- 正在热映 -->
     <div id="now-playing">
       <div class="mob-title">
-        <span>正在热映</span>
-        <router-link :to="{ name: 'movieList' }">
-          <div class="more">
-            <span>更多</span>
-            <i class="arrow"></i>
-          </div>
-        </router-link>
+        正在热映
       </div>
       <div class="mob-main">
         <ul class="lists clearfix">
@@ -38,13 +32,7 @@
     <!-- 即将上映 -->
     <div class="upComing">
       <div class="mob-title">
-        <span>即将上映</span>
-        <router-link :to="{ name: 'movieList' }">
-          <div class="more">
-            <span>更多</span>
-            <i class="arrow"></i>
-          </div>
-        </router-link>
+        即将上映
       </div>
       <div class="mob-main">
         <ul class="lists clearfix">
@@ -172,26 +160,7 @@ export default {
   line-height: .3rem;
   color: #27a;
   border-bottom: 1px solid #eee;
-}
-.more {
-  position: absolute;
-  top: 0;
-  right: .5rem;
-  width: .6rem;
-  height: .3rem;
-  line-height: .3rem;
-  font-size: .14rem;
-  color: #27a;
-}
-.more > .arrow {
-  position: absolute;
-  top: .1rem;
-  right: .18rem;
-  width: .1rem;
-  height: .1rem;
-  border-top: 2px solid #27a;;
-  border-right: 2px solid #27a;;
-  transform: rotate(45deg);   /* 旋转 45度 */
+  background: #f0f3f5;
 }
 
 /* 正在热映样式 */

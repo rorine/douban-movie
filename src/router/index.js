@@ -3,7 +3,6 @@ import Router from 'vue-router';
 import Movie from '@/views/Movie';
 import MovieDetail from '@/views/MovieDetail';
 import SearchResult from '@/components/SearchResult';
-import MovieList from '@/views/MovieList';
 import DoubanTv from '@/views/DoubanTv';
 import Chart from '@/views/Chart';
 import Comment from '@/views/Comment';
@@ -27,11 +26,6 @@ export default new Router({
       path: '/movie/search',
       name: 'SearchResult',
       component: SearchResult
-    },
-    {
-      path: '/movie/list',
-      name: 'movieList',
-      component: MovieList
     },
     {
       path: '/tv',
